@@ -9,10 +9,14 @@ import backgroundimg from "../assets/natures.jpg";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 
 export default function WeatherDetails() {
+  // Hook for navigating between pages
   const navigate = useNavigate();
+  
+  // Accessing weather data from Redux store
   const weather = useSelector((state) => state);
   console.log(weather);
 
+  // Function to get current day and date
   const getCurrentDayAndDate = () => {
     const currentDate = new Date();
     const day = currentDate.toLocaleDateString("en-US", { weekday: "long" });
@@ -36,9 +40,11 @@ export default function WeatherDetails() {
     );
   };
 
+  // Function to handle cancel button click
   const handleCancel = () => {
     navigate("/");
   };
+  
   return (
     <Box
       display={"flex"}
@@ -52,6 +58,7 @@ export default function WeatherDetails() {
         width: "100%",
       }}
     >
+      {/* Back button */}
       <Tooltip title="Back">
         <IconButton>
           <Button
@@ -66,13 +73,13 @@ export default function WeatherDetails() {
       <Grid
         width={"90%"}
         sx={{
-          // margin: "auto",
           color: "white",
         }}
       >
         {weather?.weatherData?.data?.map((item, index) => {
           return (
             <Grid key={index} width={"100%"}>
+              {/* Weather details */}
               <Box
                 display={"flex"}
                 flexDirection={"column"}
@@ -89,14 +96,13 @@ export default function WeatherDetails() {
               >
                 <Box
                   display="grid"
-                  // flexDirection={'column'}
                   alignItems="center"
                   justifyContent="start"
                   width="100%"
                   color={"yellow"}
                   paddingLeft={4}
-                  // padding={2}
                 >
+                  {/* Location */}
                   <Typography fontSize={30} textAlign={"center"}>
                     <ImLocation2 />
                   </Typography>
@@ -123,6 +129,7 @@ export default function WeatherDetails() {
                     height={"100%"}
                     width={"100%"}
                   >
+                    {/* Temperature, Icon, Day, Date */}
                     <Grid
                       alignItems={"center"}
                       display={"flex"}
@@ -159,10 +166,12 @@ export default function WeatherDetails() {
                     </Grid>
                   </Box>
 
+                  {/* Weather description */}
                   <Typography variant="body1" textAlign={"center"} mt={2}>
                     {item?.weather?.description}
                   </Typography>
                 </Box>
+                {/* Weather forecast */}
                 <Box width={"100%"} sx={{ overflowX: "auto" }}>
                   <WeatherForecast />
                 </Box>
